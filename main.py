@@ -30,11 +30,22 @@ try:
 except:
     print("no results there :(")
 
-cursor.execute("UPDATE strings SET str = ?, num = ? WHERE num > 50", ("some different string", 102))
+cursor.execute("UPDATE strings SET str = ?, num = ? WHERE num > 50", ("some different string", 1024))
 
 cursor.execute("REFRESH TABLE strings")
 
 cursor.execute("SELECT str FROM strings WHERE str LIKE ?", ["some different string"])
+
+try:
+    print(cursor.fetchall())
+except:
+    print("no results there :(")
+
+cursor.execute("DELETE FROM strings WHERE num > 512")
+
+cursor.execute("REFRESH TABLE strings")
+
+cursor.execute("SELECT * FROM strings")
 
 try:
     print(cursor.fetchall())
